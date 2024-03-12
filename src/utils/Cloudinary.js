@@ -16,6 +16,8 @@ const uploadOnCloudinary = async (localFilePath) => {
 
         if(!localFilePath) return null
 
+        let startTime = performance.now()
+
         const response = await cloudinary.uploader.upload(localFilePath,{
             resource_type:"auto"
         })
@@ -25,6 +27,10 @@ const uploadOnCloudinary = async (localFilePath) => {
         // console.table(response)
 
         fs.unlinkSync(localFilePath)
+
+        let endTime = performance.now()
+
+        console.log(`Time taken to upload file with size(${response.bytes}): ${endTime - startTime}`)
 
 
         return response
